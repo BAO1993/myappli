@@ -1,5 +1,7 @@
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,15 @@ import java.util.List;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class MainLauncher {
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(MainLauncher.class, args);
-    }
+public class MainLauncher extends SpringBootServletInitializer {
+        @Override
+        protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+            return application.sources(MainLauncher.class);
+        }
+
+        public static void main(String[] args) throws Exception {
+            SpringApplication.run(MainLauncher.class, args);
+        }
 
     //output list: ["three","two","one"]
     public List<String> reverseList(List<String> list){
